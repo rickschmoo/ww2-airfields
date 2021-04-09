@@ -8,6 +8,10 @@ To do:
 * Pagination https://bezkoder.com/node-js-sequelize-pagination-mysql/ 
 * Upload data https://bezkoder.com/node-js-upload-csv-file-database
 
+## Components
+
+Sequelize - promise-based Node.js ORM (object relationship mapping)
+
 MySQL
 * https://medium.com/macoclock/installing-mysql-5-7-using-homebrew-974cc2d42509
 * https://medium.com/macoclock/mysql-on-mac-getting-started-cecb65b78e
