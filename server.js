@@ -3,7 +3,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+
+const path = __dirname + '/app/views/';
 const app = express();
+app.use(express.static(path));
 
 // ===============================
 // express config
@@ -41,7 +44,8 @@ db.sequelize.sync();
 // simple route test
 app.get("/", (req, res) => {
   console.log("We're alive");
-  res.json({ message: "Welcome to bezkoder application." });
+  res.sendFile(path + "index.html");
+  // res.json({ message: "Welcome to bezkoder application." });
 });
 
 require("./app/routes/tutorial.routes")(app);

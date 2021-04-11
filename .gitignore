@@ -17,6 +17,7 @@
 .DS_Store
 .env
 .env.local
+.env.heroku
 .env.development.local
 .env.test.local
 .env.production.local
@@ -28,4 +29,5 @@ yarn-error.log*
 # react
 react-crud/node_modules
 react-crud/.env
+react-crud/build
 
