@@ -4,9 +4,10 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 
-const path = __dirname + '/app/views/';
+// static built on same URL
+// const path = __dirname + '/app/views/';
 const app = express();
-app.use(express.static(path));
+// app.use(express.static(path));
 
 // ===============================
 // express config
