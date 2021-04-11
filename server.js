@@ -42,12 +42,14 @@ db.sequelize.sync();
 // routes
 // ===============================
 // simple route test
-app.get("/", (req, res) => {
+app.get("/hello", (req, res) => {
   console.log("We're alive");
-  res.sendFile(path + "index.html");
-  // res.json({ message: "Welcome to bezkoder application." });
+  // res.sendFile(path + "index.html");
+  res.json({ message: "Welcome to bezkoder application." });
 });
 
+require('./app/routes/auth.routes')(app);
+require('./app/routes/user.routes')(app);
 require("./app/routes/tutorial.routes")(app);
 
 
