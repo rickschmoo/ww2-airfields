@@ -7,15 +7,13 @@ import './App.css';
 
 import AuthService from "./services/auth-service";
 
-import AddTutorial from './components/add-tutorial.component'
-import TutorialsList from './components/tutorials-list.component'
-import Tutorial from './components/tutorial.component'
-
 import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
+import BoardUserList from "./components/board-user-list.component";
+import BoardUserAdd from "./components/board-user-add.component";
+import BoardUserItem from "./components/board-user-item.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 
@@ -122,10 +120,13 @@ class App extends Component {
       <div className="container mt-3">
         <Switch>
           <Route exact path={["/", "/home"]} component={Home} />
+          <Route exact path={["/", "/tutorials"]} component={BoardUserList} />
+          <Route exact path="/add" component={BoardUserAdd} />
+          <Route path="/tutorials/:id" component={BoardUserItem} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />
-          <Route path="/user" component={BoardUser} />
+          <Route path="/user" component={BoardUserList} />
           <Route path="/mod" component={BoardModerator} />
           <Route path="/admin" component={BoardAdmin} />
         </Switch>
@@ -155,9 +156,7 @@ class App extends Component {
 
     //     <div className="container mt-3">
     //       <Switch>
-    //         <Route exact path={["/", "/tutorials"]} component={TutorialsList} />
-    //         <Route exact path="/add" component={AddTutorial} />
-    //         <Route path="/tutorials/:id" component={Tutorial} />
+ 
     //       </Switch>
     //     </div>
     //   </div>

@@ -7,6 +7,7 @@ Based on
 To do:
 * Pagination https://bezkoder.com/node-js-sequelize-pagination-mysql/ 
 * Upload data https://bezkoder.com/node-js-upload-csv-file-database
+* Switch out express for django https://bezkoder.com/django-react-axios-rest-framework/
 
 ## Components
 
@@ -20,6 +21,8 @@ Some useful commands to keep in mind as we go forward are:
 % brew services list to list all running services
 % brew services stop mysql@5.7 to stop MySQL
 % brew services restart mysql@5.7 to restart MySQL
+
+GUI: sequel ace
 
 Postman
 * https://www.codecademy.com/articles/setting-up-postman
