@@ -1,6 +1,6 @@
-# README.md
+# WW2 Airfields README.md
 
-Based on 
+Airfields database based on 
 * Basic arch https://bezkoder.com/react-node-express-mysql/ 
 * Database SQL calls https://bezkoder.com/node-js-express-sequelize-mysql/
 
@@ -9,7 +9,7 @@ To do:
 * Upload data https://bezkoder.com/node-js-upload-csv-file-database
 * Switch out express for django https://bezkoder.com/django-react-axios-rest-framework/
 
-## Components
+## Database
 
 Sequelize - promise-based Node.js ORM (object relationship mapping)
 
@@ -24,5 +24,10 @@ Some useful commands to keep in mind as we go forward are:
 
 GUI: sequel ace
 
+## Tools
+
 Postman
 * https://www.codecademy.com/articles/setting-up-postman
+
+SequelAce
+* https://apps.apple.com/us/app/sequel-ace/id1518036000?mt=12
