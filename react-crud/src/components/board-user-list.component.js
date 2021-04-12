@@ -1,25 +1,26 @@
 import React, { Component } from "react";
 
 import UserService from "../services/user-service";
-import TutorialDataService from "../services/tutorial.service";
+import AirfieldDataService from "../services/airfield.service";
 import { Link } from "react-router-dom";
 
 
 export default class BoardUserList extends Component {
+
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
-    this.retrieveTutorials = this.retrieveTutorials.bind(this);
+    this.onChangeSearchName = this.onChangeSearchName.bind(this);
+    this.retrieveAirfields = this.retrieveAirfields.bind(this);
     this.refreshList = this.refreshList.bind(this);
-    this.setActiveTutorial = this.setActiveTutorial.bind(this);
-    this.removeAllTutorials = this.removeAllTutorials.bind(this);
-    this.searchTitle = this.searchTitle.bind(this);
+    this.setActiveAirfield = this.setActiveAirfield.bind(this);
+    this.removeAllAirfields = this.removeAllAirfields.bind(this);
+    this.searchName = this.searchName.bind(this);
 
     this.state = {
-      tutorials: [],
-      currentTutorial: null,
+      airfields: [],
+      currentAirfield: null,
       currentIndex: -1,
-      searchTitle: "",
+      searchName: "",
       content: ""
     };
 
@@ -34,7 +35,7 @@ export default class BoardUserList extends Component {
         this.setState({
           content: response.data
         });
-        this.retrieveTutorials();
+        this.retrieveAirfields();
       },
       error => {
         this.setState({
@@ -49,19 +50,19 @@ export default class BoardUserList extends Component {
     );
   }
 
-  onChangeSearchTitle(e) {
-    const searchTitle = e.target.value;
+  onChangeSearchName(e) {
+    const searchName = e.target.value;
 
     this.setState({
-      searchTitle: searchTitle
+      searchName: searchName
     });
   }
 
-  retrieveTutorials() {
-    TutorialDataService.getAll()
+  retrieveAirfields() {
+    AirfieldDataService.getAll()
       .then(response => {
         this.setState({
-          tutorials: response.data
+          airfields: response.data
         });
         console.log(response.data);
       })
@@ -71,22 +72,22 @@ export default class BoardUserList extends Component {
   }
 
   refreshList() {
-    this.retrieveTutorials();
+    this.retrieveAirfields();
     this.setState({
-      currentTutorial: null,
+      currentAirfield: null,
       currentIndex: -1
     });
   }
 
-  setActiveTutorial(tutorial, index) {
+  setActiveAirfield(airfield, index) {
     this.setState({
-      currentTutorial: tutorial,
+      currentAirfield: airfield,
       currentIndex: index
     });
   }
 
-  removeAllTutorials() {
-    TutorialDataService.deleteAll()
+  removeAllAirfields() {
+    AirfieldDataService.deleteAll()
       .then(response => {
         console.log(response.data);
         this.refreshList();
@@ -96,11 +97,11 @@ export default class BoardUserList extends Component {
       });
   }
 
-  searchTitle() {
-    TutorialDataService.findByTitle(this.state.searchTitle)
+  searchName() {
+    AirfieldDataService.findByName(this.state.searchName)
       .then(response => {
         this.setState({
-          tutorials: response.data
+          airfields: response.data
         });
         console.log(response.data);
       })
@@ -110,29 +111,29 @@ export default class BoardUserList extends Component {
   }
 
   render() {
-    const { searchTitle, tutorials, currentTutorial, currentIndex } = this.state;
+    const { searchName, airfields, currentAirfield, currentIndex } = this.state;
 
     return (
       <div className="container">
         <header className="jumbotron">
           <h3>{this.state.content}</h3>
         </header>
-        <div className="container mt-3 tutorial-container">
+        <div className="container mt-3 airfield-container">
           <div className="list row">
           <div className="col-md-8">
             <div className="input-group mb-3">
               <input
                 type="text"
                 className="form-control"
-                placeholder="Search by title"
-                value={searchTitle}
-                onChange={this.onChangeSearchTitle}
+                placeholder="Search by name"
+                value={searchName}
+                onChange={this.onChangeSearchName}
               />
               <div className="input-group-append">
                 <button
                   className="btn btn-outline-secondary"
                   type="button"
-                  onClick={this.searchTitle}
+                  onClick={this.searchName}
                 >
                   Search
                 </button>
@@ -140,56 +141,92 @@ export default class BoardUserList extends Component {
             </div>
           </div>
           <div className="col-md-6">
-            <h4>Tutorials List</h4>
+            <h4>Airfields List</h4>
 
             <ul className="list-group">
-              {tutorials &&
-                tutorials.map((tutorial, index) => (
+              {airfields &&
+                airfields.map((airfield, index) => (
                   <li
                     className={
                       "list-group-item " +
                       (index === currentIndex ? "active" : "")
                     }
-                    onClick={() => this.setActiveTutorial(tutorial, index)}
+                    onClick={() => this.setActiveAirfield(airfield, index)}
                     key={index}
                   >
-                    {tutorial.title}
+                    {airfield.name}
                   </li>
                 ))}
             </ul>
 
             <button
               className="m-3 btn btn-sm btn-danger"
-              onClick={this.removeAllTutorials}
+              onClick={this.removeAllAirfields}
             >
               Remove All
             </button>
           </div>
           <div className="col-md-6">
-            {currentTutorial ? (
+            {currentAirfield ? (
               <div>
-                <h4>Tutorial</h4>
+                <h4>Airfield</h4>
                 <div>
                   <label>
-                    <strong>Title:</strong>
+                    <strong>Name:</strong>
                   </label>{" "}
-                  {currentTutorial.title}
+                  {currentAirfield.name}
                 </div>
                 <div>
                   <label>
-                    <strong>Description:</strong>
+                    <strong>Station #:</strong>
                   </label>{" "}
-                  {currentTutorial.description}
+                  {currentAirfield.station_num}
                 </div>
                 <div>
                   <label>
-                    <strong>Status:</strong>
+                  <strong>Airforces</strong>
                   </label>{" "}
-                  {currentTutorial.published ? "Published" : "Pending"}
+                  {currentAirfield.airforces}
+                </div>
+                <div>
+                  <label>
+                    <strong>RAF Squadrons:</strong>
+                  </label>{" "}
+                  {currentAirfield.raf_squadrons}
+                </div> 
+                <div>
+                  <label>
+                    <strong>USAAF Squadrons:</strong>
+                  </label>{" "}
+                  {currentAirfield.usaaf_squadrons}
+                </div>
+                <div>
+                  <label>
+                    <strong>Coordinates:</strong>
+                  </label>{" "}
+                  {currentAirfield.coordinates}
+                </div> 
+                <div>
+                  <label>
+                    <strong>USAAF Squadrons:</strong>
+                  </label>{" "}
+                  {currentAirfield.usaaf_squadrons}
+                </div>
+                <div>
+                  <label>
+                    <strong>Wikipedia:</strong>
+                  </label>{" "}
+                  <a href={currentAirfield.url_wikipedia}>{currentAirfield.url_wikipedia}</a>
+                </div>
+                <div>
+                  <label>
+                    <strong>Published status:</strong>
+                  </label>{" "}
+                  {currentAirfield.published ? "Published" : "Pending"}
                 </div>
 
                 <Link
-                  to={"/tutorials/" + currentTutorial.id}
+                  to={"/Airfields/" + currentAirfield.id}
                   className="badge badge-warning"
                 >
                   Edit
@@ -198,7 +235,7 @@ export default class BoardUserList extends Component {
             ) : (
               <div>
                 <br />
-                <p>Please click on a Tutorial...</p>
+                <p>Please click on a Airfield...</p>
               </div>
             )}
           </div>

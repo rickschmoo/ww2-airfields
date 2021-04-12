@@ -11,10 +11,12 @@ import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
+
 import BoardUserList from "./components/board-user-list.component";
 import BoardUserAdd from "./components/board-user-add.component";
 import BoardUserItem from "./components/board-user-item.component";
 import BoardModerator from "./components/board-moderator.component";
+
 import BoardAdmin from "./components/board-admin.component";
 
 
@@ -53,7 +55,7 @@ class App extends Component {
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <Link to={"/"} className="navbar-brand">
-          bezKoder
+          WW2 airfields
         </Link>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
@@ -65,7 +67,7 @@ class App extends Component {
           {showModeratorBoard && (
             <li className="nav-item">
               <Link to={"/mod"} className="nav-link">
-                Moderator Board
+                Moderator
               </Link>
             </li>
           )}
@@ -73,7 +75,7 @@ class App extends Component {
           {showAdminBoard && (
             <li className="nav-item">
               <Link to={"/admin"} className="nav-link">
-                Admin Board
+                Admin
               </Link>
             </li>
           )}
@@ -120,9 +122,9 @@ class App extends Component {
       <div className="container mt-3">
         <Switch>
           <Route exact path={["/", "/home"]} component={Home} />
-          <Route exact path={["/", "/tutorials"]} component={BoardUserList} />
+          <Route exact path={["/", "/airfields"]} component={BoardUserList} />
           <Route exact path="/add" component={BoardUserAdd} />
-          <Route path="/tutorials/:id" component={BoardUserItem} />
+          <Route path="/airfields/:id" component={BoardUserItem} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />
@@ -132,36 +134,7 @@ class App extends Component {
         </Switch>
       </div>
     </div>
-  );
-
-    // return (
-    //   <div>
-    //     <nav className="navbar navbar-expand navbar-dark bg-dark">
-    //       <a href="/tutorials" className="navbar-brand">
-    //         bezKoder
-    //       </a>
-    //       <div className="navbar-nav mr-auto">
-    //         <li className="nav-item">
-    //           <Link to={"/tutorials"} className="nav-link">
-    //             Tutorials
-    //           </Link>
-    //         </li>
-    //         <li className="nav-item">
-    //           <Link to={"/add"} className="nav-link">
-    //             Add
-    //           </Link>
-    //         </li>
-    //       </div>
-    //     </nav>
-
-    //     <div className="container mt-3">
-    //       <Switch>
- 
-    //       </Switch>
-    //     </div>
-    //   </div>
-    // );
-  }
+  )};
 }
 
 export default App;

@@ -1,21 +1,24 @@
 import React, { Component } from "react";
-import TutorialDataService from "../services/tutorial.service";
+import AirfieldDataService from "../services/airfield.service";
 
 export default class BoardUserItem extends Component {
   constructor(props) {
     super(props);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.getTutorial = this.getTutorial.bind(this);
+    this.onChangeName = this.onChangeName.bind(this);
+    this.onChangeAirforces = this.onChangeAirforces.bind(this);
+    this.onChangeStationNum = this.onChangeStationNum.bind(this);
+    
+    this.getAirfield = this.getAirfield.bind(this);
     this.updatePublished = this.updatePublished.bind(this);
-    this.updateTutorial = this.updateTutorial.bind(this);
-    this.deleteTutorial = this.deleteTutorial.bind(this);
+    this.updateAirfield = this.updateAirfield.bind(this);
+    this.deleteAirfield = this.deleteAirfield.bind(this);
 
     this.state = {
-      currentTutorial: {
+      currentAirfield: {
         id: null,
-        title: "",
-        description: "",
+        name: "",
+        airforces: "",
+        station_num: "",
         published: false
       },
       message: ""
@@ -23,38 +26,49 @@ export default class BoardUserItem extends Component {
   }
 
   componentDidMount() {
-    this.getTutorial(this.props.match.params.id);
+    this.getAirfield(this.props.match.params.id);
   }
 
-  onChangeTitle(e) {
-    const title = e.target.value;
+  onChangeName(e) {
+    const name = e.target.value;
 
     this.setState(function(prevState) {
       return {
-        currentTutorial: {
-          ...prevState.currentTutorial,
-          title: title
+        currentAirfield: {
+          ...prevState.currentAirfield,
+          name: name
         }
       };
     });
   }
 
-  onChangeDescription(e) {
-    const description = e.target.value;
+  onChangeAirforces(e) {
+    const airforces = e.target.value;
     
     this.setState(prevState => ({
-      currentTutorial: {
-        ...prevState.currentTutorial,
-        description: description
+      currentAirfield: {
+        ...prevState.currentAirfield,
+        airforces: airforces
       }
     }));
   }
 
-  getTutorial(id) {
-    TutorialDataService.get(id)
+  onChangeStationNum(e) {
+    const station_num = e.target.value;
+    
+    this.setState(prevState => ({
+      currentAirfield: {
+        ...prevState.currentAirfield,
+        station_num: station_num
+      }
+    }));
+  }
+
+  getAirfield(id) {
+    AirfieldDataService.get(id)
       .then(response => {
         this.setState({
-          currentTutorial: response.data
+          currentAirfield: response.data
         });
         console.log(response.data);
       })
@@ -65,17 +79,18 @@ export default class BoardUserItem extends Component {
 
   updatePublished(status) {
     var data = {
-      id: this.state.currentTutorial.id,
-      title: this.state.currentTutorial.title,
-      description: this.state.currentTutorial.description,
+      id: this.state.currentAirfield.id,
+      name: this.state.currentAirfield.name,
+      airforces: this.state.currentAirfield.airforces,
+      station_num: this.state.currentAirfield.station_num,
       published: status
     };
 
-    TutorialDataService.update(this.state.currentTutorial.id, data)
+    AirfieldDataService.update(this.state.currentAirfield.id, data)
       .then(response => {
         this.setState(prevState => ({
-          currentTutorial: {
-            ...prevState.currentTutorial,
+          currentAirfield: {
+            ...prevState.currentAirfield,
             published: status
           }
         }));
@@ -86,15 +101,15 @@ export default class BoardUserItem extends Component {
       });
   }
 
-  updateTutorial() {
-    TutorialDataService.update(
-      this.state.currentTutorial.id,
-      this.state.currentTutorial
+  updateAirfield() {
+    AirfieldDataService.update(
+      this.state.currentAirfield.id,
+      this.state.currentAirfield
     )
       .then(response => {
         console.log(response.data);
         this.setState({
-          message: "The tutorial was updated successfully!"
+          message: "The airfield was updated successfully!"
         });
       })
       .catch(e => {
@@ -102,11 +117,11 @@ export default class BoardUserItem extends Component {
       });
   }
 
-  deleteTutorial() {    
-    TutorialDataService.delete(this.state.currentTutorial.id)
+  deleteAirfield() {    
+    AirfieldDataService.delete(this.state.currentAirfield.id)
       .then(response => {
         console.log(response.data);
-        this.props.history.push('/tutorials')
+        this.props.history.push('/airfields')
       })
       .catch(e => {
         console.log(e);
@@ -114,32 +129,42 @@ export default class BoardUserItem extends Component {
   }
 
   render() {
-    const { currentTutorial } = this.state;
+    const { currentAirfield } = this.state;
 
     return (
       <div>
-        {currentTutorial ? (
+        {currentAirfield ? (
           <div className="edit-form">
-            <h4>Tutorial</h4>
+            <h4>Airfield</h4>
             <form>
               <div className="form-group">
-                <label htmlFor="title">Title</label>
+                <label htmlFor="name">Name</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="title"
-                  value={currentTutorial.title}
-                  onChange={this.onChangeTitle}
+                  id="name"
+                  value={currentAirfield.name}
+                  onChange={this.onChangeName}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="airforces">Airforces</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="description"
-                  value={currentTutorial.description}
-                  onChange={this.onChangeDescription}
+                  id="airforces"
+                  value={currentAirfield.airforces}
+                  onChange={this.onChangeAirforces}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="station_num">Station #</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="station_num"
+                  value={currentAirfield.station_num}
+                  onChange={this.onChangeStationNum}
                 />
               </div>
 
@@ -147,11 +172,11 @@ export default class BoardUserItem extends Component {
                 <label>
                   <strong>Status:</strong>
                 </label>
-                {currentTutorial.published ? "Published" : "Pending"}
+                {currentAirfield.published ? "Published" : "Pending"}
               </div>
             </form>
 
-            {currentTutorial.published ? (
+            {currentAirfield.published ? (
               <button
                 className="badge badge-primary mr-2"
                 onClick={() => this.updatePublished(false)}
@@ -169,7 +194,7 @@ export default class BoardUserItem extends Component {
 
             <button
               className="badge badge-danger mr-2"
-              onClick={this.deleteTutorial}
+              onClick={this.deleteAirfield}
             >
               Delete
             </button>
@@ -177,7 +202,7 @@ export default class BoardUserItem extends Component {
             <button
               type="submit"
               className="badge badge-success"
-              onClick={this.updateTutorial}
+              onClick={this.updateAirfield}
             >
               Update
             </button>
@@ -186,7 +211,7 @@ export default class BoardUserItem extends Component {
         ) : (
           <div>
             <br />
-            <p>Please click on a Tutorial...</p>
+            <p>Please click on a Airfield...</p>
           </div>
         )}
       </div>

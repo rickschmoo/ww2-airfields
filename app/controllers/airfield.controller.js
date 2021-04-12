@@ -1,9 +1,9 @@
 const db = require("../models");
-const Tutorial = db.tutorials;
+const Airfield = db.airfield;
 const Op = db.Sequelize.Op;
 
 // ===============================
-// Create and Save a new Tutorial
+// Create and Save a new Airfield
 // ===============================
 exports.create = (req, res) => {
     // Validate request
@@ -14,151 +14,151 @@ exports.create = (req, res) => {
       return;
     }
   
-    // Create a Tutorial
-    const tutorial = {
-      title: req.body.title,
-      description: req.body.description,
+    // Create an Airfield
+    const airfield = {
+      name: req.body.title,
+      airforces: req.body.description,
       published: req.body.published ? req.body.published : false
     };
   
-    // Save Tutorial in the database
-    Tutorial.create(tutorial)
+    // Save Airfield in the database
+    Airfield.create(airfield)
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while creating the Tutorial."
+            err.message || "Some error occurred while creating the Airfield."
         });
       });
   };
 
 
 // ==========================================
-// Retrieve all Tutorials from the database.
+// Retrieve all Airfields from the database.
 // ==========================================
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+    const name = req.query.name;
+    var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
   
-    Tutorial.findAll({ where: condition })
+    Airfield.findAll({ where: condition })
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving tutorials."
+            err.message || "Some error occurred while retrieving Airfields."
         });
       });
   };
 
 // ==========================================
-// Find a single Tutorial with an id
+// Find a single Airfield with an id
 // ==========================================
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Tutorial.findByPk(id)
+    Airfield.findByPk(id)
         .then(data => {
         res.send(data);
         })
         .catch(err => {
         res.status(500).send({
-            message: "Error retrieving Tutorial with id=" + id
+            message: "Error retrieving Airfield with id=" + id
         });
         });
 };
 
 // ==========================================
-// Update a Tutorial by the id in the request
+// Update an Airfield by the id in the request
 // ==========================================
 exports.update = (req, res) => {
     const id = req.params.id;
   
-    Tutorial.update(req.body, {
+    Airfield.update(req.body, {
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Tutorial was updated successfully."
+            message: "Airfield was updated successfully."
           });
         } else {
           res.send({
-            message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+            message: `Cannot update Airfield with id=${id}. Maybe Airfield was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Tutorial with id=" + id
+          message: "Error updating Airfield with id=" + id
         });
       });
   };
 
 
 // ========================================================
-// Delete a Tutorial with the specified id in the request
+// Delete an Airfield with the specified id in the request
 // ========================================================
 exports.delete = (req, res) => {
     const id = req.params.id;
   
-    Tutorial.destroy({
+    Airfield.destroy({
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Tutorial was deleted successfully!"
+            message: "Airfield was deleted successfully!"
           });
         } else {
           res.send({
-            message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+            message: `Cannot delete Airfield with id=${id}. Maybe Airfield was not found!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Could not delete Tutorial with id=" + id
+          message: "Could not delete Airfield with id=" + id
         });
       });
   };
 
 
 // ========================================================
-// Delete all Tutorials from the database.
+// Delete all Airfields from the database.
 // ========================================================
 exports.deleteAll = (req, res) => {
-    Tutorial.destroy({
+    Airfield.destroy({
       where: {},
       truncate: false
     })
       .then(nums => {
-        res.send({ message: `${nums} Tutorials were deleted successfully!` });
+        res.send({ message: `${nums} Airfields were deleted successfully!` });
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while removing all tutorials."
+            err.message || "Some error occurred while removing all Airfields."
         });
       });
   };
 
 
 // ========================================================  
-// Find all published Tutorials
+// Find all published Airfields
 // ========================================================
 exports.findAllPublished = (req, res) => {
-    Tutorial.findAll({ where: { published: true } })
+  Airfield.findAll({ where: { published: true } })
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving tutorials."
+            err.message || "Some error occurred while retrieving Airfields."
         });
       });
   };

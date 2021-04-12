@@ -46,12 +46,12 @@ db.sequelize.sync();
 app.get("/hello", (req, res) => {
   console.log("We're alive");
   // res.sendFile(path + "index.html");
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to WW2 airfields application." });
 });
 
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
-require("./app/routes/tutorial.routes")(app);
+require("./app/routes/airfield.routes")(app);
 
 
 // ===============================
