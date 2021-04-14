@@ -124,8 +124,8 @@ export default class BoardUserList extends Component {
 
     return (
       <div className="container">
-        <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+        <header>
+          <h1>Airfields browser</h1>
         </header>
         <div className="container mt-3 airfield-container">
           <div className="list row">
@@ -193,22 +193,11 @@ export default class BoardUserList extends Component {
                 </div>
                 <div>
                   <label>
-                  <strong>Airforces</strong>
-                  </label>{" "}
-                  {currentAirfield.airforces}
-                </div>
-                <div>
-                  <label>
-                    <strong>RAF Squadrons:</strong>
+                    <strong>Squadrons: {currentAirfield.airforces}</strong>
                   </label>{" "}
                   {currentAirfield.raf_squadrons}
-                </div> 
-                <div>
-                  <label>
-                    <strong>USAAF Squadrons:</strong>
-                  </label>{" "}
                   {currentAirfield.usaaf_squadrons}
-                </div>
+                </div> 
                 <div>
                   <label>
                     <strong>Coordinates:</strong>
@@ -217,15 +206,9 @@ export default class BoardUserList extends Component {
                 </div> 
                 <div>
                   <label>
-                    <strong>USAAF Squadrons:</strong>
-                  </label>{" "}
-                  {currentAirfield.usaaf_squadrons}
-                </div>
-                <div>
-                  <label>
                     <strong>Wikipedia:</strong>
                   </label>{" "}
-                  <a href={currentAirfield.url_wikipedia}>{currentAirfield.url_wikipedia}</a>
+                  <a href={currentAirfield.url_wikipedia} target="_blank" rel="noreferrer">{currentAirfield.url_wikipedia}</a>
                 </div>
                 <div>
                   <label>
