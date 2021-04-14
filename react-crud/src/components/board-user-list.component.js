@@ -111,7 +111,16 @@ export default class BoardUserList extends Component {
   }
 
   render() {
+    
     const { searchName, airfields, currentAirfield, currentIndex } = this.state;
+    const googleMapsURLPrefix = 'https://www.google.com/maps/@?api=1&map_action=map&center='
+    const googleMapsURLPostfix = '&basemap=satellite&zoom=14';
+    let mapsLatLongUrl='';
+    if (currentAirfield) {
+      mapsLatLongUrl =  googleMapsURLPrefix +
+                        currentAirfield.lat + ',' + currentAirfield.long +
+                        googleMapsURLPostfix;
+    }
 
     return (
       <div className="container">
@@ -154,7 +163,7 @@ export default class BoardUserList extends Component {
                     onClick={() => this.setActiveAirfield(airfield, index)}
                     key={index}
                   >
-                    {airfield.name}
+                    {airfield.id + ' ' + airfield.name}
                   </li>
                 ))}
             </ul>
@@ -204,7 +213,7 @@ export default class BoardUserList extends Component {
                   <label>
                     <strong>Coordinates:</strong>
                   </label>{" "}
-                  {currentAirfield.coordinates}
+                  <a href={ mapsLatLongUrl } rel="noreferrer" target="_blank">{currentAirfield.coordinates}</a>
                 </div> 
                 <div>
                   <label>
