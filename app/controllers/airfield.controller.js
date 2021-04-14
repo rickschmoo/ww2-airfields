@@ -40,7 +40,7 @@ exports.create = (req, res) => {
 // ==========================================
 exports.findAll = (req, res) => {
     const name = req.query.name;
-    var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+    var condition = name ? { name: { [Op.startsWith]: `${name}%` } } : null;
   
     Airfield.findAll({ where: condition })
       .then(data => {

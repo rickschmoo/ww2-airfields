@@ -20,8 +20,8 @@ export default class BoardUserList extends Component {
       airfields: [],
       currentAirfield: null,
       currentIndex: -1,
-      searchName: "",
-      content: ""
+      searchName: '',
+      content: ''
     };
 
     this.state = {
@@ -64,7 +64,8 @@ export default class BoardUserList extends Component {
         this.setState({
           airfields: response.data
         });
-        console.log(response.data);
+        // console.log(response.data);
+        console.log('Retrieved ' + response.data.length + ' airfields');
       })
       .catch(e => {
         console.log(e);
@@ -135,7 +136,7 @@ export default class BoardUserList extends Component {
                 type="text"
                 className="form-control"
                 placeholder="Search by name"
-                value={searchName}
+                value={searchName || ''}
                 onChange={this.onChangeSearchName}
               />
               <div className="input-group-append">
