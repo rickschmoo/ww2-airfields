@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import MapContainer from "./map-component"
 import UserService from "../services/user-service";
 import AirfieldDataService from "../services/airfield.service";
 import { Link } from "react-router-dom";
@@ -18,7 +19,7 @@ export default class BoardUserList extends Component {
 
     this.state = {
       airfields: [],
-      currentAirfield: null,
+      currentAirfield: null,                                                                                                                                                                    
       currentIndex: -1,
       searchName: '',
       content: ''
@@ -123,6 +124,12 @@ export default class BoardUserList extends Component {
                         googleMapsURLPostfix;
     }
 
+    const listStyle = {
+      overflowY: "scroll",
+      height: "1000px"
+    };
+
+    console.log('*****REFRESHING DETAIL********* ', currentAirfield);
     return (
       <div className="container">
         <header>
@@ -150,7 +157,7 @@ export default class BoardUserList extends Component {
               </div>
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6" style={listStyle}>
             <h4>Airfields List</h4>
 
             <ul className="list-group">
@@ -185,6 +192,10 @@ export default class BoardUserList extends Component {
                     <strong>Name:</strong>
                   </label>{" "}
                   {currentAirfield.name}
+                </div>
+                <div className="map-test">
+=                  <MapContainer lat={currentAirfield ? currentAirfield.lat : 0.0}
+                                long={currentAirfield ? currentAirfield.long : 0.0}/>      
                 </div>
                 <div>
                   <label>
