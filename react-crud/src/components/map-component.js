@@ -93,6 +93,12 @@ export class MapContainer extends Component {
           zoom={14}
           style={mapStyles}
           mapType="satellite"
+          initialCenter={
+            {
+              lat: parseFloat(this.props.lat),
+              lng: parseFloat(this.props.long)
+            }
+          }
           center={
             {
               lat: parseFloat(this.props.lat),
