@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
 
 const mapStyles = {
-  width: '800px',
-  height: '800px'
+  width: '700px',
+  height: '700px'
 };
 
 export class MapContainer extends Component {
@@ -85,9 +85,6 @@ export class MapContainer extends Component {
     // options={Map => ({ mapTypeId: Map.mapTypeId.SATELLITE })}
     return (
       <div className="map-container">
-        <div>
-          { this.props.lat } / { this.props.long }
-        </div>
         <Map
           google={this.props.google}
           zoom={14}

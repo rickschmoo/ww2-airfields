@@ -128,6 +128,7 @@ export default class BoardUserList extends Component {
       overflowY: "scroll",
       height: "1000px"
     };
+    const unknownString = "Unknown";
 
     console.log('*****REFRESHING DETAIL********* ', currentAirfield);
     return (
@@ -158,24 +159,24 @@ export default class BoardUserList extends Component {
             </div>
           </div>
           <div className="col-md-6" style={listStyle}>
-            <h4>Airfields List</h4>
-
-            <ul className="list-group">
-              {airfields &&
-                airfields.map((airfield, index) => (
-                  <li
-                    className={
-                      "list-group-item " +
-                      (index === currentIndex ? "active" : "")
-                    }
-                    onClick={() => this.setActiveAirfield(airfield, index)}
-                    key={index}
-                  >
-                    {airfield.id + ' ' + airfield.name}
-                  </li>
-                ))}
-            </ul>
-
+            <h2>Airfields List</h2>
+            <div style={listStyle}>
+              <ul className="list-group">
+                {airfields &&
+                  airfields.map((airfield, index) => (
+                    <li
+                      className={
+                        "list-group-item " +
+                        (index === currentIndex ? "active" : "")
+                      }
+                      onClick={() => this.setActiveAirfield(airfield, index)}
+                      key={index}
+                    >
+                      {airfield.id + ' ' + airfield.name}
+                    </li>
+                  ))}
+              </ul>
+            </div>
             <button
               className="m-3 btn btn-sm btn-danger"
               onClick={this.removeAllAirfields}
@@ -186,55 +187,50 @@ export default class BoardUserList extends Component {
           <div className="col-md-6">
             {currentAirfield ? (
               <div>
-                <h4>Airfield</h4>
                 <div>
-                  <label>
-                    <strong>Name:</strong>
-                  </label>{" "}
-                  {currentAirfield.name}
-                </div>
-                <div className="map-test">
-=                  <MapContainer lat={currentAirfield ? currentAirfield.lat : 0.0}
-                                long={currentAirfield ? currentAirfield.long : 0.0}/>      
+                  <h2>
+                    {currentAirfield.name}
+                  </h2>
                 </div>
                 <div>
-                  <label>
-                    <strong>Station #:</strong>
-                  </label>{" "}
-                  {currentAirfield.station_num}
-                </div>
-                <div>
-                  <label>
-                    <strong>Squadrons: {currentAirfield.airforces}</strong>
-                  </label>{" "}
-                  {currentAirfield.raf_squadrons}
-                  {currentAirfield.usaaf_squadrons}
-                </div> 
-                <div>
-                  <label>
-                    <strong>Coordinates:</strong>
-                  </label>{" "}
-                  <a href={ mapsLatLongUrl } rel="noreferrer" target="_blank">{currentAirfield.coordinates}</a>
-                </div> 
-                <div>
-                  <label>
-                    <strong>Wikipedia:</strong>
-                  </label>{" "}
-                  <a href={currentAirfield.url_wikipedia} target="_blank" rel="noreferrer">{currentAirfield.url_wikipedia}</a>
-                </div>
-                <div>
-                  <label>
-                    <strong>Published status:</strong>
-                  </label>{" "}
-                  {currentAirfield.published ? "Published" : "Pending"}
-                </div>
+                  <ul>
+                    <li>
+                      <strong>Station #: </strong> {(currentAirfield.station_num ? currentAirfield.station_num : unknownString )}
+                    </li>
+                    <li>
+                      <strong>Squadrons: </strong> {currentAirfield.airforces ? currentAirfield.airforces : unknownString} 
 
+                      { currentAirfield.raf_squadrons || currentAirfield.usaaf_squadrons ?
+                        <ul> 
+                          {currentAirfield.raf_squadrons ? <li>{currentAirfield.raf_squadrons}</li> : ''}
+                          {currentAirfield.usaaf_squadrons ? <li>{currentAirfield.usaaf_squadrons}</li> : ''}
+                        </ul> : 
+                      ''}
+                    </li>
+                    <li>
+                    <strong>Coordinates: </strong> 
+                  <a href={ mapsLatLongUrl } rel="noreferrer" target="_blank">{currentAirfield.coordinates}</a>
+                    </li>
+                    <li>
+                      <strong>Wikipedia: </strong> 
+                        <a href={currentAirfield.url_wikipedia} target="_blank" rel="noreferrer">{currentAirfield.url_wikipedia}</a>
+                    </li>
+                    <li>
+                    <strong>Published status: </strong>
+                      {currentAirfield.published ? "Published" : "Pending"}
+                    </li>
+                  </ul>
+                </div>
                 <Link
                   to={"/Airfields/" + currentAirfield.id}
                   className="badge badge-warning"
                 >
                   Edit
                 </Link>
+                <div className="map-test">
+                   <MapContainer lat={currentAirfield ? currentAirfield.lat : 0.0}
+                                long={currentAirfield ? currentAirfield.long : 0.0}/>      
+                </div>
               </div>
             ) : (
               <div>
