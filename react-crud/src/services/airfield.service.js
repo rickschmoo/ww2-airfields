@@ -25,8 +25,8 @@ class AirfieldDataService {
     return http.delete(`/airfields`);
   }
 
-  findByName(name) {
-    return http.get(`/airfields?name=${name}`);
+  findByName(name, airforces) {
+    return http.get(`/airfields?name=${name}&airforces=${airforces}`);
   }
 }
 

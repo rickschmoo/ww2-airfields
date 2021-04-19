@@ -11,6 +11,7 @@ export default class BoardUserList extends Component {
   constructor(props) {
     super(props);
     this.onChangeSearchName = this.onChangeSearchName.bind(this);
+    this.onChangeAirforceSelect = this.onChangeAirforceSelect.bind(this);
     this.retrieveAirfields = this.retrieveAirfields.bind(this);
     this.refreshList = this.refreshList.bind(this);
     this.setActiveAirfield = this.setActiveAirfield.bind(this);
@@ -22,6 +23,7 @@ export default class BoardUserList extends Component {
       currentAirfield: null,                                                                                                                                                                    
       currentIndex: -1,
       searchName: '',
+      airforceSelect: '',
       content: ''
     };
 
@@ -56,6 +58,14 @@ export default class BoardUserList extends Component {
 
     this.setState({
       searchName: searchName
+    });
+  }
+
+  onChangeAirforceSelect(e) {
+    const airforceSelect = e.target.value;
+    console.log(airforceSelect + ' selected');
+    this.setState({
+      airforceSelect: airforceSelect
     });
   }
 
@@ -100,7 +110,7 @@ export default class BoardUserList extends Component {
   }
 
   searchName() {
-    AirfieldDataService.findByName(this.state.searchName)
+    AirfieldDataService.findByName(this.state.searchName, this.state.airforceSelect)
       .then(response => {
         this.setState({
           airfields: response.data
@@ -114,7 +124,7 @@ export default class BoardUserList extends Component {
 
   render() {
     
-    const { searchName, airfields, currentAirfield, currentIndex } = this.state;
+    const { searchName, airforceSelect, airfields, currentAirfield, currentIndex } = this.state;
     const googleMapsURLPrefix = 'https://www.google.com/maps/@?api=1&map_action=map&center='
     const googleMapsURLPostfix = '&basemap=satellite&zoom=14';
     let mapsLatLongUrl='';
@@ -139,24 +149,42 @@ export default class BoardUserList extends Component {
         <div className="container mt-3 airfield-container">
           <div className="list row">
           <div className="col-md-8">
-            <div className="input-group mb-3">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search by name"
-                value={searchName || ''}
-                onChange={this.onChangeSearchName}
-              />
-              <div className="input-group-append">
-                <button
-                  className="btn btn-outline-secondary"
-                  type="button"
-                  onClick={this.searchName}
-                >
-                  Search
-                </button>
+            <form>
+              <div className="input-group mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search by name"
+                  value={searchName || ''}
+                  onChange={this.onChangeSearchName}
+                />
+                <div className="input-group-append">
+                  <button
+                    className="btn btn-outline-secondary"
+                    type="button"
+                    onClick={this.searchName}
+                  >
+                    Search
+                  </button>
+                </div>
               </div>
-            </div>
+              <div className="form-group">
+                <div>
+                <label for="airforce-select">Airforces</label>
+                  <select
+                    className="form-control form-control-sm"
+                    id="airforce-select"
+                    value={airforceSelect || ''}
+                    onChange={this.onChangeAirforceSelect}
+                  >
+                      <option selected value="Any">Any</option>                    
+                      <option value="RAF">RAF only</option>
+                      <option value="USAAF">USAAF only</option>
+                      <option value="RAF and USAAF">Both RAF and USAAF</option>
+                  </select>
+                </div>
+              </div>
+            </form>
           </div>
           <div className="col-md-6" style={listStyle}>
             <h2>Airfields List</h2>
@@ -208,16 +236,16 @@ export default class BoardUserList extends Component {
                       ''}
                     </li>
                     <li>
-                    <strong>Coordinates: </strong> 
-                  <a href={ mapsLatLongUrl } rel="noreferrer" target="_blank">{currentAirfield.coordinates}</a>
+                      <strong>Coordinates: </strong> 
+                        <a href={ mapsLatLongUrl } rel="noreferrer" target="_blank">{currentAirfield.coordinates}</a>
                     </li>
                     <li>
                       <strong>Wikipedia: </strong> 
                         <a href={currentAirfield.url_wikipedia} target="_blank" rel="noreferrer">{currentAirfield.url_wikipedia}</a>
                     </li>
                     <li>
-                    <strong>Published status: </strong>
-                      {currentAirfield.published ? "Published" : "Pending"}
+                      <strong>Published status: </strong>
+                        {currentAirfield.published ? "Published" : "Pending"}
                     </li>
                   </ul>
                 </div>

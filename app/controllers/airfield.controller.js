@@ -1,3 +1,4 @@
+const { airfield } = require("../models");
 const db = require("../models");
 const Airfield = db.airfield;
 const Op = db.Sequelize.Op;
@@ -40,8 +41,24 @@ exports.create = (req, res) => {
 // ==========================================
 exports.findAll = (req, res) => {
     const name = req.query.name;
-    var condition = name ? { name: { [Op.startsWith]: `${name}%` } } : null;
-  
+    const airforces = req.query.airforces;
+    var condition;
+    console.log("Search by " + name + " / " + airforces);
+    if (name == "undefined" && airforces == "undefined") {
+      condition = null;
+    } else {
+      if ((airforces == "undefined") || (airforces == "Any")) {
+        condition = {name: { [Op.startsWith]: `${name}%` }};
+      } else {
+        condition = name ? {
+          [Op.and]:
+          [{name: { [Op.startsWith]: `${name}%`}},
+           {airforces: { [Op.eq]: `${airforces}`}}]
+        } : {
+          airforces: { [Op.eq]: `${airforces}`}
+        };
+      }
+    }
     Airfield.findAll({ where: condition })
       .then(data => {
         res.send(data);
