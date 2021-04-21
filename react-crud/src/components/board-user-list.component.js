@@ -23,8 +23,8 @@ export default class BoardUserList extends Component {
       currentAirfield: null,                                                                                                                                                                    
       currentIndex: -1,
       searchName: '',
-      airforceSelect: '',
-      content: ''
+      airforceSelect: 'Any',
+      content: '',
     };
 
     this.state = {
@@ -62,11 +62,10 @@ export default class BoardUserList extends Component {
   }
 
   onChangeAirforceSelect(e) {
-    const airforceSelect = e.target.value;
-    console.log(airforceSelect + ' selected');
     this.setState({
-      airforceSelect: airforceSelect
+      airforceSelect: e.target.value
     });
+    console.log(this.state.airforceSelect + ' selected');
   }
 
   retrieveAirfields() {
@@ -124,7 +123,7 @@ export default class BoardUserList extends Component {
 
   render() {
     
-    const { searchName, airforceSelect, airfields, currentAirfield, currentIndex } = this.state;
+    const { searchName, airfields, currentAirfield, currentIndex } = this.state;
     const googleMapsURLPrefix = 'https://www.google.com/maps/@?api=1&map_action=map&center='
     const googleMapsURLPostfix = '&basemap=satellite&zoom=14';
     let mapsLatLongUrl='';
@@ -161,10 +160,10 @@ export default class BoardUserList extends Component {
                   <select
                     className="form-control form-control-sm"
                     id="airforce-select"
-                    value={airforceSelect || ''}
+                    value={this.state.airforceSelect}
                     onChange={this.onChangeAirforceSelect}
                   >
-                      <option selected value="Any">Any</option>                    
+                      <option value="Any">Any</option>                    
                       <option value="RAF">RAF only</option>
                       <option value="USAAF">USAAF only</option>
                       <option value="RAF and USAAF">Both RAF and USAAF</option>
