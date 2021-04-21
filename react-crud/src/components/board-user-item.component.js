@@ -169,10 +169,8 @@ export default class BoardUserItem extends Component {
               </div>
 
               <div className="form-group">
-                <label>
-                  <strong>Status:</strong>
-                </label>
-                {currentAirfield.published ? "Published" : "Pending"}
+                <strong>Status:</strong>
+\                {currentAirfield.published ? "Published" : "Pending"}
               </div>
             </form>
 

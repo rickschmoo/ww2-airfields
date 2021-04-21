@@ -11,7 +11,7 @@ export default class BoardUserList extends Component {
   constructor(props) {
     super(props);
     this.onChangeSearchName = this.onChangeSearchName.bind(this);
-    this.onChangeAirforceSelect = this.onChangeAirforceSelect.bind(this);
+    this.onBlurAirforceSelect = this.onBlurAirforceSelect.bind(this);
     this.retrieveAirfields = this.retrieveAirfields.bind(this);
     this.refreshList = this.refreshList.bind(this);
     this.setActiveAirfield = this.setActiveAirfield.bind(this);
@@ -61,7 +61,7 @@ export default class BoardUserList extends Component {
     });
   }
 
-  onChangeAirforceSelect(e) {
+  onBlurAirforceSelect(e) {
     this.setState({
       airforceSelect: e.target.value
     });
@@ -157,17 +157,17 @@ export default class BoardUserList extends Component {
 
                 {/* Airforces select */ }
                 <label htmlFor="airforce-select">Airforces</label>
-                  <select
-                    className="form-control form-control-sm"
-                    id="airforce-select"
-                    value={this.state.airforceSelect}
-                    onChange={this.onChangeAirforceSelect}
-                  >
-                      <option value="Any">Any</option>                    
-                      <option value="RAF">RAF only</option>
-                      <option value="USAAF">USAAF only</option>
-                      <option value="RAF and USAAF">Both RAF and USAAF</option>
-                  </select>
+                <select
+                  className="form-control form-control-sm"
+                  id="airforce-select"
+                  value={this.state.airforceSelect}
+                  onBlur={this.onBlurAirforceSelect}
+                >
+                    <option value="Any">Any</option>                    
+                    <option value="RAF">RAF only</option>
+                    <option value="USAAF">USAAF only</option>
+                    <option value="RAF and USAAF">Both RAF and USAAF</option>
+                </select>
                 </div>
               </div>
 
@@ -201,15 +201,17 @@ export default class BoardUserList extends Component {
               <ul className="list-group">
                 {airfields &&
                   airfields.map((airfield, index) => (
-                    <li
-                      className={
-                        "list-group-item " +
-                        (index === currentIndex ? "active" : "")
-                      }
-                      onClick={() => this.setActiveAirfield(airfield, index)}
-                      key={index}
-                    >
+                    <li key={index}>
+                      <button 
+                        className={
+                          "list-group-item " +
+                          (index === currentIndex ? "active" : "")
+                        }
+                        onClick={() => this.setActiveAirfield(airfield, index)}
+                        onKeyDown={() => this.setActiveAirfield(airfield, index)}
+                      >
                       {airfield.id + ' ' + airfield.name}
+                      </button>
                     </li>
                   ))}
               </ul>
