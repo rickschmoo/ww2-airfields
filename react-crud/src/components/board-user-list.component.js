@@ -157,7 +157,7 @@ export default class BoardUserList extends Component {
                 <div>
 
                 {/* Airforces select */ }
-                <label for="airforce-select">Airforces</label>
+                <label htmlFor="airforce-select">Airforces</label>
                   <select
                     className="form-control form-control-sm"
                     id="airforce-select"
