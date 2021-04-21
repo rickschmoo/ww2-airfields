@@ -37,28 +37,24 @@ exports.create = (req, res) => {
 
 
 // ==========================================
-// Retrieve all Airfields from the database.
+// Retrieve set of Airfields from the database.
 // ==========================================
 exports.findAll = (req, res) => {
-    const name = req.query.name;
-    const airforces = req.query.airforces;
-    var condition;
-    console.log("Search by " + name + " / " + airforces);
-    if (name == "undefined" && airforces == "undefined") {
-      condition = null;
-    } else {
-      if ((airforces == "undefined") || (airforces == "Any")) {
-        condition = {name: { [Op.startsWith]: `${name}%` }};
-      } else {
-        condition = name ? {
-          [Op.and]:
-          [{name: { [Op.startsWith]: `${name}%`}},
-           {airforces: { [Op.eq]: `${airforces}`}}]
-        } : {
-          airforces: { [Op.eq]: `${airforces}`}
-        };
-      }
+    const name = req.query.name || '';
+    const airforces = req.query.airforces || '';
+    var condition = [];
+    console.log("Query Strings <" + name + "> / <" + airforces + '>');
+    
+    if (name && (name !== "undefined") && (name !== '')) {
+      condition.push({name: { [Op.startsWith]: `${name}%` }});
     }
+
+    if (airforces && (airforces !== "undefined") && (airforces !== '') && (airforces !== 'Any')) {
+      condition.push({airforces: { [Op.eq]: `${airforces}`}});
+    }    
+
+    console.log(">>>>>>>>>>>>> CONDITION IS " + condition);
+
     Airfield.findAll({ where: condition })
       .then(data => {
         res.send(data);

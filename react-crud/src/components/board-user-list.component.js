@@ -140,36 +140,23 @@ export default class BoardUserList extends Component {
     };
     const unknownString = "Unknown";
 
-    console.log('*****REFRESHING DETAIL********* ', currentAirfield);
+    const currentAirfieldString = currentAirfield || "None selected"; 
+    console.log('*****REFRESHING DETAIL********* ', currentAirfieldString);
     return (
       <div className="container">
         <header>
-          <h1>Airfields browser</h1>
+          <h1>Search</h1>
         </header>
         <div className="container mt-3 airfield-container">
           <div className="list row">
           <div className="col-md-8">
             <form>
-              <div className="input-group mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Search by name"
-                  value={searchName || ''}
-                  onChange={this.onChangeSearchName}
-                />
-                <div className="input-group-append">
-                  <button
-                    className="btn btn-outline-secondary"
-                    type="button"
-                    onClick={this.searchName}
-                  >
-                    Search
-                  </button>
-                </div>
-              </div>
-              <div className="form-group">
+
+
+            <div className="form-group">
                 <div>
+
+                {/* Airforces select */ }
                 <label for="airforce-select">Airforces</label>
                   <select
                     className="form-control form-control-sm"
@@ -184,10 +171,33 @@ export default class BoardUserList extends Component {
                   </select>
                 </div>
               </div>
+
+              {/* Search box */ }
+              <div className="input-group mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Name starts with"
+                  value={searchName || ''}
+                  onChange={this.onChangeSearchName}
+                />
+                <div className="input-group-append">
+                  <button
+                    className="btn btn-outline-secondary"
+                    type="button"
+                    onClick={this.searchName}
+                  >
+                    Search
+                  </button>
+                </div>
+              </div>
+              
             </form>
           </div>
           <div className="col-md-6" style={listStyle}>
-            <h2>Airfields List</h2>
+            <h2>
+              { airfields ? airfields.length : null } Airfields
+            </h2>
             <div style={listStyle}>
               <ul className="list-group">
                 {airfields &&
