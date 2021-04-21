@@ -65,7 +65,7 @@ export default class BoardUserList extends Component {
     this.setState({
       airforceSelect: e.target.value
     });
-    console.log(this.state.airforceSelect + ' selected');
+    // console.log(this.state.airforceSelect + ' selected');
   }
 
   retrieveAirfields() {
@@ -75,7 +75,7 @@ export default class BoardUserList extends Component {
           airfields: response.data
         });
         // console.log(response.data);
-        console.log('Retrieved ' + response.data.length + ' airfields');
+        console.log('[LIST] Retrieved ' + response.data.length + ' airfields');
       })
       .catch(e => {
         console.log(e);
@@ -140,7 +140,8 @@ export default class BoardUserList extends Component {
     const unknownString = "Unknown";
 
     const currentAirfieldString = currentAirfield || "None selected"; 
-    console.log('*****REFRESHING DETAIL********* ', currentAirfieldString);
+    console.log('[LIST] Refreshing: ', currentAirfieldString);
+
     return (
       <div className="container">
         <header>
@@ -155,7 +156,7 @@ export default class BoardUserList extends Component {
             <div className="form-group">
                 <div>
 
-                {/* Airforces select */ }
+                {/* ======= Airforces select ======= */ }
                 <label htmlFor="airforce-select">Airforces</label>
                 <select
                   className="form-control form-control-sm"
@@ -171,7 +172,7 @@ export default class BoardUserList extends Component {
                 </div>
               </div>
 
-              {/* Search box */ }
+              {/* ======= Search box ======= */ }
               <div className="input-group mb-3">
                 <input
                   type="text"
@@ -193,6 +194,8 @@ export default class BoardUserList extends Component {
               
             </form>
           </div>
+
+          {/* ======= Results ======= */ }
           <div className="col-md-6" style={listStyle}>
             <h2>
               { airfields ? airfields.length : null } Airfields

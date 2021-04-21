@@ -18,8 +18,8 @@ export class MapContainer extends Component {
       selectedPlace: {}          // Shows the InfoWindow to the selected place upon a marker  
     };
 
-    console.log(process.env.NODE_ENV);
-    console.log(process.env.GOOGLE_MAPS_API_KEY);
+    console.log("[MAPS] " + process.env.NODE_ENV);
+    console.log("[MAPS] " + process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
 
 }
 
@@ -39,50 +39,10 @@ export class MapContainer extends Component {
     }
   };
   
-/*  getMapOptions = (maps) => {
-
-    return {
-        streetViewControl: false,
-        scaleControl: true,
-        fullscreenControl: false,
-        styles: [{
-            featureType: "poi.business",
-            elementType: "labels",
-            stylers: [{
-                visibility: "off"
-            }]
-        }],
-        gestureHandling: "greedy",
-        disableDoubleClickZoom: true,
-        minZoom: 11,
-        maxZoom: 18,
-
-        mapTypeControl: true,
-        mapTypeId: maps.MapTypeId.SATELLITE,
-        mapTypeControlOptions: {
-            style: maps.MapTypeControlStyle.HORIZONTAL_BAR,
-            position: maps.ControlPosition.BOTTOM_CENTER,
-            mapTypeIds: [
-                maps.MapTypeId.ROADMAP,
-                maps.MapTypeId.SATELLITE,
-                maps.MapTypeId.HYBRID
-            ]
-        },
-
-        zoomControl: true,
-        clickableIcons: false
-    };
-}
- */
   render() {
-    console.log('LAT: ' + this.props.lat);
-    console.log('LONG: ' + this.props.long);
-    // console.log(this.getMapOptions());
-    // let mapOptions = this.getMapOptions();
+    // console.log('[MAPS] LAT: ' + this.props.lat);
+    // console.log('[MAPS ] LONG: ' + this.props.long);
 
-
-    // options={this.getMapOptions()}
-    // options={Map => ({ mapTypeId: Map.mapTypeId.SATELLITE })}
     return (
       <div className="map-container">
         <Map

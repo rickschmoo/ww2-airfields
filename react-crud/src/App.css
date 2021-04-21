@@ -69,3 +69,8 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+.list-group li button {
+  width: 100%;
+  text-align: left;
+}

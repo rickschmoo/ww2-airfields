@@ -6,15 +6,27 @@ import './index.css';
 
 import App from './App';
 
+if (process.env.NODE_ENV !== 'production') {
+  const axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+  ReactDOM.render(
+    <HashRouter>
+      <App />
+    </HashRouter>,
+    document.getElementById('root')
+  );
+} else {
+  ReactDOM.render(
+    <HashRouter>
+      <App />
+    </HashRouter>,
+    document.getElementById('root')
+  );  
+}
+
 // import * as serviceWorker from "./serviceWorker";
 // import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <HashRouter>
-    <App />
-  </HashRouter>,
-  document.getElementById('root')
-);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
