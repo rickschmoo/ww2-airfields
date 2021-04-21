@@ -3,3 +3,8 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+
+import 'jest-axe/extend-expect';
+// import 'jest-dom/extend-expect';
+// import '@testing-library/cleanup-after-each';
+

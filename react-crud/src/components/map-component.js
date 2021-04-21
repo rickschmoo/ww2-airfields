@@ -45,6 +45,7 @@ export class MapContainer extends Component {
 
     return (
       <div className="map-container">
+        Component Title: 
         <Map
           google={this.props.google}
           zoom={14}

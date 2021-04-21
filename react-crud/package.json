@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.10",
-    "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "google-maps-react": "^2.0.6",
     "react": "^17.0.2",
@@ -40,6 +38,9 @@
   },
   "devDependencies": {
     "@axe-core/react": "^4.1.1",
-    "axe-core": "^4.1.4"
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.6",
+    "axe-core": "^4.1.4",
+    "jest-axe": "^4.1.0"
   }
 }

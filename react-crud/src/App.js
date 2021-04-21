@@ -132,6 +132,7 @@ class App extends Component {
           <Route path="/mod" component={BoardModerator} />
           <Route path="/admin" component={BoardAdmin} />
         </Switch>
+        learn react
       </div>
     </div>
   )};
