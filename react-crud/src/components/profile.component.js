@@ -15,10 +15,8 @@ export default class Profile extends Component {
 
     return (
       <div className="container">
-        <header className="jumbotron">
-          <h3>
-            <strong>{currentUser.username}</strong> Profile
-          </h3>
+        <header>
+            <h1>{currentUser.username}'s Profile</h1>
         </header>
         <p>
           <strong>Token:</strong>{" "}

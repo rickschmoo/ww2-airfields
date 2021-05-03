@@ -32,10 +32,10 @@ export default class Home extends Component {
   render() {
     return (
       <div className="container">
-        <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+        <header>
+          <h1>Public Home</h1>
         </header>
-        Public content
+        {this.state.content}
       </div>
     );
   }

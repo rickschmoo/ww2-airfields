@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import UserService from "../services/user-service";
 
-export default class BoardModerator extends Component {
+export default class ModeratorHome extends Component {
   constructor(props) {
     super(props);
 
@@ -34,9 +34,10 @@ export default class BoardModerator extends Component {
   render() {
     return (
       <div className="container">
-        <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+        <header>
+          <h1>Moderator Home</h1>
         </header>
+        {this.state.content}
       </div>
     );
   }
