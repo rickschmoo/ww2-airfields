@@ -12,11 +12,11 @@ import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 
-import BoardUserList from "./components/board-user-list.component";
-import BoardUserAdd from "./components/board-user-add.component";
-import BoardUserItem from "./components/board-user-item.component";
-import BoardModerator from "./components/board-moderator.component";
+import AirfieldList from "./components/airfield-list.component";
+import AirfieldItem from "./components/airfield-item.component";
 
+import BoardUserAdd from "./components/board-user-add.component";
+import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 
 
@@ -122,13 +122,13 @@ class App extends Component {
       <div className="container mt-3">
         <Switch>
           <Route exact path={["/", "/home"]} component={Home} />
-          <Route exact path={["/", "/airfields"]} component={BoardUserList} />
+          <Route exact path={["/", "/airfields"]} component={AirfieldList} />
           <Route exact path="/add" component={BoardUserAdd} />
-          <Route path="/airfields/:id" component={BoardUserItem} />
+          <Route path="/airfields/:id" component={AirfieldItem} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />
-          <Route path="/user" component={BoardUserList} />
+          <Route path="/user" component={AirfieldList} />
           <Route path="/mod" component={BoardModerator} />
           <Route path="/admin" component={BoardAdmin} />
         </Switch>

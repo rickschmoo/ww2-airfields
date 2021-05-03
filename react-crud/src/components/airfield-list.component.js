@@ -6,7 +6,7 @@ import AirfieldDataService from "../services/airfield.service";
 import { Link } from "react-router-dom";
 
 
-export default class BoardUserList extends Component {
+export default class AirfieldList extends Component {
 
   constructor(props) {
     super(props);

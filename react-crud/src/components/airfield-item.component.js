@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AirfieldDataService from "../services/airfield.service";
 
-export default class BoardUserItem extends Component {
+export default class AirfieldItem extends Component {
   constructor(props) {
     super(props);
     this.onChangeName = this.onChangeName.bind(this);
